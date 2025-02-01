@@ -19,7 +19,13 @@ vim.api.nvim_set_keymap("n", "<leader>y", '"+y<CR>', { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-o>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-i>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>BufferLinePickClose<CR>", { desc = "Close buffer" })
-vim.api.nvim_set_keymap("n", "<leader>cc", "<cmd>bd<CR>", { desc = "Close current buffer" })
+
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>cc",
+	"<cmd>bnext | bd#<CR>",
+	{ noremap = true, silent = true, desc = "Close current buffer and move to next" }
+)
 
 require("lazy").setup({
 	{ import = "config.plugins" },
