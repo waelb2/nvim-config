@@ -80,9 +80,11 @@ return {
 		mason_lspconfig.setup_handlers({
 			-- Default handler for installed servers
 			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
+				if server_name ~= "jdtls" then -- Avoid duplicate setup for jdtls
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+					})
+				end
 			end,
 
 			-- Configure Go with gopls
@@ -99,7 +101,11 @@ return {
 					},
 				})
 			end,
-
+			-- Configure jdtls (Java LSP)
+			["jdtls"] = function()
+				-- Do nothing, since jdtls is typically managed externally
+				return true
+			end,
 			-- Configure svelte, graphql, emmet, lua, pyright servers (you can add other languages as needed)
 			["svelte"] = function()
 				lspconfig["svelte"].setup({
